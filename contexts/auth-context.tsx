@@ -17,8 +17,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (storedUser) {
           setUser(JSON.parse(storedUser))
         }
-      } catch (error) {
-        console.error('Failed to restore user session:', error)
+      } catch {
+        setUser(null)
       } finally {
         setIsLoading(false)
       }
@@ -28,7 +28,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const login = async (email: string, password: string) => {
-    console.log('AuthContext.login() called with email:', email)
     setIsLoading(true)
     try {
       // Validate inputs
@@ -56,16 +55,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         company: 'Acme Engineering',
         createdAt: new Date(),
       }
-      console.log('AuthContext.login() - Setting user:', mockUser.email)
       setUser(mockUser)
       // Store as JSON (Date will be serialized as ISO string automatically)
       localStorage.setItem('user', JSON.stringify({
         ...mockUser,
         createdAt: mockUser.createdAt.toISOString()
       }))
-      console.log('AuthContext.login() - User set and stored')
     } finally {
-      console.log('AuthContext.login() - Setting isLoading to false')
       setIsLoading(false)
     }
   }

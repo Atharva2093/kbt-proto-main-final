@@ -9,7 +9,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Thermometer, Mail, Lock, User, Building, Loader2 } from "lucide-react"
+import { BrandLogo } from "@/components/brand-logo"
+import { Mail, Lock, User, Building, Loader2 } from "lucide-react"
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -65,7 +66,6 @@ export default function SignupPage() {
     setIsLoading(true)
 
     try {
-      console.log("Signup page: Attempting signup with email:", formData.email)
       await signup(
         formData.email,
         formData.password,
@@ -76,7 +76,6 @@ export default function SignupPage() {
       
       // Double-check that user was actually set
       const storedUser = localStorage.getItem('user')
-      console.log("Signup page: User in localStorage:", storedUser ? "yes" : "no")
       
       if (!storedUser) {
         setError("Failed to save account. Please try again.")
@@ -84,14 +83,11 @@ export default function SignupPage() {
         return
       }
 
-      console.log("Signup page: Signup successful, navigating to dashboard")
       // Wait a bit for context to update, then navigate
       setTimeout(() => {
-        console.log("Signup page: Now redirecting to dashboard")
         router.push("/dashboard")
       }, 500)
     } catch (err) {
-      console.error("Signup page: Signup error:", err)
       const errorMessage = err instanceof Error ? err.message : "Signup failed. Please try again."
       setError(errorMessage)
     } finally {
@@ -109,17 +105,16 @@ export default function SignupPage() {
 
       <div className="w-full max-w-md space-y-8">
         {/* Logo and branding */}
-        <Link href="/" className="flex items-center justify-center gap-2">
-          <Thermometer className="h-8 w-8 text-primary" />
-          <span className="text-2xl font-semibold text-foreground">ThermalWall AI</span>
-        </Link>
+        <div className="flex justify-center">
+          <BrandLogo href="/" textClassName="text-2xl" />
+        </div>
 
         {/* Signup Card */}
         <Card className="border-border shadow-lg">
           <CardHeader className="space-y-2">
             <CardTitle className="text-2xl">Create Account</CardTitle>
             <CardDescription>
-              Join ThermalWall AI and optimize your building designs
+              Join ThermoSmart and optimize your building designs
             </CardDescription>
           </CardHeader>
 

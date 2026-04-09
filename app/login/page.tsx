@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Thermometer, Mail, Lock, Loader2 } from "lucide-react"
+import { BrandLogo } from "@/components/brand-logo"
+import { Mail, Lock, Loader2 } from "lucide-react"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -30,12 +31,10 @@ export default function LoginPage() {
     setIsLoading(true)
 
     try {
-      console.log("Login page: Attempting login with email:", email)
       await login(email, password)
       
       // Double-check that user was actually set
       const storedUser = localStorage.getItem('user')
-      console.log("Login page: User in localStorage:", storedUser ? "yes" : "no")
       
       if (!storedUser) {
         setError("Failed to save login. Please try again.")
@@ -43,14 +42,11 @@ export default function LoginPage() {
         return
       }
 
-      console.log("Login page: Login successful, navigating to dashboard")
       // Wait a bit for context to update, then navigate
       setTimeout(() => {
-        console.log("Login page: Now redirecting to dashboard")
         router.push("/dashboard")
       }, 500)
     } catch (err) {
-      console.error("Login page: Login error:", err)
       const errorMessage = err instanceof Error ? err.message : "Login failed. Please try again."
       setError(errorMessage)
       setIsLoading(false)
@@ -67,10 +63,9 @@ export default function LoginPage() {
 
       <div className="w-full max-w-md space-y-8">
         {/* Logo and branding */}
-        <Link href="/" className="flex items-center justify-center gap-2">
-          <Thermometer className="h-8 w-8 text-primary" />
-          <span className="text-2xl font-semibold text-foreground">ThermalWall AI</span>
-        </Link>
+        <div className="flex justify-center">
+          <BrandLogo href="/" textClassName="text-2xl" />
+        </div>
 
         {/* Login Card */}
         <Card className="border-border shadow-lg">
@@ -184,7 +179,7 @@ export default function LoginPage() {
 
             {/* Signup Link */}
             <p className="mt-6 text-center text-sm text-muted-foreground">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/signup" className="font-semibold text-primary hover:underline">
                 Sign up
               </Link>

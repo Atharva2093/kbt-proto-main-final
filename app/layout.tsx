@@ -10,25 +10,24 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'ThermalWall AI - Smart Optimization for Energy Efficient Wall Design',
-  description: 'AI-powered platform that analyzes heat transfer in composite walls, recommends optimal materials, and generates ready-to-purchase procurement lists.',
-  generator: 'v0.app',
+  title: 'ThermoSmart - Smart Optimization for Energy Efficient Wall Design',
+  description: 'ThermoSmart analyzes heat transfer in composite walls, recommends optimal materials, and generates procurement-ready material lists.',
+  applicationName: 'ThermoSmart',
+  keywords: ['thermal analysis', 'wall optimization', 'energy efficiency', 'building materials', 'procurement'],
+  openGraph: {
+    title: 'ThermoSmart',
+    description: 'AI-powered thermal optimization for composite wall design.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ThermoSmart',
+    description: 'AI-powered thermal optimization for composite wall design.',
+  },
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
   },
 }
 
@@ -40,10 +39,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-card focus:px-3 focus:py-2 focus:text-sm"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <AuthProvider>
             <CartProvider>
-              {children}
+              <div id="main-content">{children}</div>
               <Analytics />
             </CartProvider>
           </AuthProvider>

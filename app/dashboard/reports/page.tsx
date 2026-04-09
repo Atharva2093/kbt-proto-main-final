@@ -145,28 +145,28 @@ export default function ReportsPage() {
                 <LineChart data={temperatureData}>
                   <CartesianGrid
                     strokeDasharray="3 3"
-                    stroke="hsl(var(--border))"
+                    stroke="rgba(128,128,128,0.2)"
                   />
                   <XAxis
                     dataKey="position"
-                    stroke="hsl(var(--muted-foreground))"
-                    tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                    stroke="#888780"
+                    tick={{ fill: "#888780", fontSize: 12 }}
                     label={{
                       value: "Wall Thickness (mm)",
                       position: "insideBottom",
                       offset: -5,
-                      fill: "hsl(var(--muted-foreground))",
+                      fill: "#888780",
                       fontSize: 12,
                     }}
                   />
                   <YAxis
-                    stroke="hsl(var(--muted-foreground))"
-                    tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                    stroke="#888780"
+                    tick={{ fill: "#888780", fontSize: 12 }}
                     label={{
                       value: "Temp (°C)",
                       angle: -90,
                       position: "insideLeft",
-                      fill: "hsl(var(--muted-foreground))",
+                      fill: "#888780",
                       fontSize: 12,
                     }}
                   />
@@ -181,9 +181,9 @@ export default function ReportsPage() {
                   <Line
                     type="monotone"
                     dataKey="temp"
-                    stroke="hsl(var(--primary))"
+                    stroke="#378ADD"
                     strokeWidth={2}
-                    dot={{ fill: "hsl(var(--primary))", strokeWidth: 0 }}
+                    dot={{ fill: "#378ADD", strokeWidth: 0 }}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -204,21 +204,21 @@ export default function ReportsPage() {
                 <BarChart data={energySavingsData}>
                   <CartesianGrid
                     strokeDasharray="3 3"
-                    stroke="hsl(var(--border))"
+                    stroke="rgba(128,128,128,0.2)"
                   />
                   <XAxis
                     dataKey="month"
-                    stroke="hsl(var(--muted-foreground))"
-                    tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                    stroke="#888780"
+                    tick={{ fill: "#888780", fontSize: 12 }}
                   />
                   <YAxis
-                    stroke="hsl(var(--muted-foreground))"
-                    tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                    stroke="#888780"
+                    tick={{ fill: "#888780", fontSize: 12 }}
                     label={{
                       value: "Cost ($)",
                       angle: -90,
                       position: "insideLeft",
-                      fill: "hsl(var(--muted-foreground))",
+                      fill: "#888780",
                       fontSize: 12,
                     }}
                   />
@@ -232,13 +232,13 @@ export default function ReportsPage() {
                   />
                   <Bar
                     dataKey="original"
-                    fill="hsl(var(--muted-foreground))"
+                    fill="#888780"
                     name="Original Design"
                     radius={[4, 4, 0, 0]}
                   />
                   <Bar
                     dataKey="optimized"
-                    fill="hsl(var(--primary))"
+                    fill="#378ADD"
                     name="Optimized Design"
                     radius={[4, 4, 0, 0]}
                   />
@@ -247,13 +247,13 @@ export default function ReportsPage() {
             </div>
             <div className="mt-4 flex justify-center gap-6">
               <div className="flex items-center gap-2">
-                <div className="h-3 w-3 rounded bg-muted-foreground" />
+                <div className="h-3 w-3 rounded" style={{ backgroundColor: "#888780" }} />
                 <span className="text-sm text-muted-foreground">
                   Original Design
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="h-3 w-3 rounded bg-primary" />
+                <div className="h-3 w-3 rounded" style={{ backgroundColor: "#378ADD" }} />
                 <span className="text-sm text-muted-foreground">
                   Optimized Design
                 </span>

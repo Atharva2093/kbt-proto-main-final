@@ -68,7 +68,7 @@ export default function OrderConfirmationPage() {
           Order Confirmed!
         </h1>
         <p className="text-emerald-700 mb-6 max-w-md mx-auto">
-          Thank you for your order. We've received it and will begin processing right away.
+          Thank you for your order. We&apos;ve received it and will begin processing right away.
         </p>
         <div className="flex flex-col sm:flex-row gap-2 justify-center">
           <Button variant="outline" className="gap-2">
@@ -261,7 +261,7 @@ export default function OrderConfirmationPage() {
           {/* Next Steps */}
           <Card className="border-border bg-card">
             <CardHeader>
-              <CardTitle className="text-base">What's Next?</CardTitle>
+              <CardTitle className="text-base">What&apos;s Next?</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="space-y-2.5 text-sm">

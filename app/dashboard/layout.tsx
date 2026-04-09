@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { BrandLogo } from "@/components/brand-logo"
 import { ProtectedRoute } from "@/components/protected-route"
 import { useAuth } from "@/contexts/auth-context"
 import {
@@ -14,7 +15,6 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 import {
-  Thermometer,
   LayoutDashboard,
   FlaskConical,
   Cpu,
@@ -24,7 +24,6 @@ import {
   Settings,
   Bell,
   ChevronDown,
-  User,
   Menu,
   X,
   LogOut,
@@ -68,6 +67,7 @@ function DashboardLayoutContent({
       {sidebarOpen && (
         <div 
           className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm lg:hidden"
+          aria-hidden="true"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -80,14 +80,16 @@ function DashboardLayoutContent({
         )}
       >
         <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-6">
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <Thermometer className="h-6 w-6 text-sidebar-primary" />
-            <span className="text-lg font-semibold text-sidebar-foreground">ThermalWall AI</span>
-          </Link>
+          <BrandLogo
+            href="/dashboard"
+            markClassName="h-7 w-7"
+            textClassName="text-lg font-semibold text-sidebar-foreground"
+          />
           <Button
             variant="ghost"
             size="icon"
             className="lg:hidden"
+            aria-label="Close sidebar"
             onClick={() => setSidebarOpen(false)}
           >
             <X className="h-5 w-5" />
@@ -135,6 +137,7 @@ function DashboardLayoutContent({
               variant="ghost"
               size="icon"
               className="lg:hidden"
+              aria-label="Open sidebar"
               onClick={() => setSidebarOpen(true)}
             >
               <Menu className="h-5 w-5" />
@@ -154,13 +157,13 @@ function DashboardLayoutContent({
             </DropdownMenu>
           </div>
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" className="relative">
+            <Button variant="ghost" size="icon" className="relative" aria-label="Open notifications">
               <Bell className="h-5 w-5" />
               <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-primary" />
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full">
+                <Button variant="ghost" size="icon" className="rounded-full" aria-label="Open profile menu">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-semibold">
                     {initials}
                   </div>

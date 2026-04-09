@@ -49,6 +49,7 @@ export default function ThermalAnalysisPage() {
     { id: 3, material: "Concrete", conductivity: "1.28", density: "2300", thickness: "150" },
   ])
   const [analysisRun, setAnalysisRun] = useState(false)
+  const [isAnalyzing, setIsAnalyzing] = useState(false)
 
   const addLayer = () => {
     const newId = layers.length > 0 ? Math.max(...layers.map((l) => l.id)) + 1 : 1
@@ -62,8 +63,11 @@ export default function ThermalAnalysisPage() {
     setLayers(layers.filter((l) => l.id !== id))
   }
 
-  const runAnalysis = () => {
+  const runAnalysis = async () => {
+    setIsAnalyzing(true)
+    await new Promise((resolve) => setTimeout(resolve, 900))
     setAnalysisRun(true)
+    setIsAnalyzing(false)
   }
 
   return (
@@ -136,6 +140,7 @@ export default function ThermalAnalysisPage() {
                         variant="ghost"
                         size="icon"
                         className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                        aria-label={`Remove layer ${index + 1}`}
                         onClick={() => removeLayer(layer.id)}
                       >
                         <Trash2 className="h-4 w-4" />
@@ -200,9 +205,9 @@ export default function ThermalAnalysisPage() {
             </CardContent>
           </Card>
 
-          <Button onClick={runAnalysis} className="w-full gap-2" size="lg">
+          <Button onClick={runAnalysis} className="w-full gap-2" size="lg" disabled={isAnalyzing}>
             <Play className="h-4 w-4" />
-            Run Thermal Analysis
+            {isAnalyzing ? "Running Analysis..." : "Run Thermal Analysis"}
           </Button>
         </div>
 
@@ -218,29 +223,29 @@ export default function ThermalAnalysisPage() {
               <div className="h-72">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={temperatureData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
                     <XAxis
                       dataKey="position"
-                      stroke="hsl(var(--muted-foreground))"
-                      tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
-                      tickLine={{ stroke: "hsl(var(--muted-foreground))" }}
+                      stroke="#888780"
+                      tick={{ fill: "#888780", fontSize: 12 }}
+                      tickLine={{ stroke: "#888780" }}
                       label={{
                         value: "Position (mm)",
                         position: "insideBottom",
                         offset: -5,
-                        fill: "hsl(var(--muted-foreground))",
+                        fill: "#888780",
                         fontSize: 12,
                       }}
                     />
                     <YAxis
-                      stroke="hsl(var(--muted-foreground))"
-                      tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
-                      tickLine={{ stroke: "hsl(var(--muted-foreground))" }}
+                      stroke="#888780"
+                      tick={{ fill: "#888780", fontSize: 12 }}
+                      tickLine={{ stroke: "#888780" }}
                       label={{
                         value: "Temp (°C)",
                         angle: -90,
                         position: "insideLeft",
-                        fill: "hsl(var(--muted-foreground))",
+                        fill: "#888780",
                         fontSize: 12,
                       }}
                     />
@@ -255,9 +260,9 @@ export default function ThermalAnalysisPage() {
                     <Line
                       type="monotone"
                       dataKey="temp"
-                      stroke="hsl(var(--primary))"
+                      stroke="#378ADD"
                       strokeWidth={2}
-                      dot={{ fill: "hsl(var(--primary))", strokeWidth: 0 }}
+                      dot={{ fill: "#378ADD", strokeWidth: 0 }}
                     />
                   </LineChart>
                 </ResponsiveContainer>

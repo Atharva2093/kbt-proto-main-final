@@ -191,7 +191,8 @@ export default function ProcurementPage() {
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
-                <Table>
+                <Table className="min-w-[860px]">
+                  <caption className="sr-only">Available suppliers and material pricing</caption>
                   <TableHeader>
                     <TableRow className="border-border">
                       <TableHead className="text-muted-foreground">Material</TableHead>
@@ -203,7 +204,7 @@ export default function ProcurementPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {suppliers.map((supplier) => (
+                    {suppliers.length > 0 ? suppliers.map((supplier) => (
                       <TableRow key={supplier.material} className="border-border">
                         <TableCell className="font-medium text-foreground">
                           {supplier.material}
@@ -236,6 +237,7 @@ export default function ProcurementPage() {
                               variant="outline"
                               size="icon"
                               className="h-7 w-7"
+                              aria-label={`Decrease quantity for ${supplier.material}`}
                               onClick={() => updateQuantity(supplier.material, -1)}
                             >
                               <Minus className="h-3 w-3" />
@@ -249,6 +251,7 @@ export default function ProcurementPage() {
                               variant="outline"
                               size="icon"
                               className="h-7 w-7"
+                              aria-label={`Increase quantity for ${supplier.material}`}
                               onClick={() => updateQuantity(supplier.material, 1)}
                             >
                               <Plus className="h-3 w-3" />
@@ -266,7 +269,13 @@ export default function ProcurementPage() {
                           </Button>
                         </TableCell>
                       </TableRow>
-                    ))}
+                    )) : (
+                      <TableRow>
+                        <TableCell colSpan={6} className="py-8 text-center text-sm text-muted-foreground">
+                          No suppliers are available for the selected project yet.
+                        </TableCell>
+                      </TableRow>
+                    )}
                   </TableBody>
                 </Table>
               </div>
@@ -285,9 +294,9 @@ export default function ProcurementPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {contextCart.length === 0 ? (
-                <p className="text-center text-sm text-muted-foreground">
-                  Your cart is empty
-                </p>
+                <div className="rounded-lg border border-dashed border-border p-4 text-center text-sm text-muted-foreground">
+                  Your cart is empty. Add at least one material to continue to checkout.
+                </div>
               ) : (
                 <div className="space-y-3">
                   {contextCart.map((item) => (

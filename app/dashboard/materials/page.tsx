@@ -82,7 +82,8 @@ export default function MaterialsPage() {
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
-                <Table>
+                <Table className="min-w-[760px]">
+                  <caption className="sr-only">Optimized material list and total estimated costs</caption>
                   <TableHeader>
                     <TableRow className="border-border">
                       <TableHead className="text-muted-foreground">Layer</TableHead>

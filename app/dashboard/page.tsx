@@ -139,10 +139,10 @@ export default function DashboardPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">
-            Welcome, {user?.firstName}!
+            Welcome, {user?.firstName || "there"}!
           </h1>
           <p className="text-muted-foreground mt-1">
-            Here's your thermal analysis dashboard and optimization platform
+            Here&apos;s your thermal analysis dashboard and optimization platform
           </p>
         </div>
         <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
@@ -302,7 +302,7 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full min-w-[720px] text-sm">
               <thead>
                 <tr className="border-b border-border text-left">
                   <th className="pb-3 text-sm font-medium text-muted-foreground">
@@ -323,44 +323,52 @@ export default function DashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {recentProjects.map((project, i) => (
-                  <tr key={i} className="border-b border-border last:border-0">
-                    <td className="py-4 text-sm font-medium text-foreground">
-                      {project.name}
-                    </td>
-                    <td className="py-4 text-sm text-muted-foreground">
-                      {project.type}
-                    </td>
-                    <td className="py-4 text-sm text-muted-foreground">
-                      {project.updated}
-                    </td>
-                    <td className="py-4">
-                      <Badge
-                        variant={
-                          project.status === "Completed"
-                            ? "default"
-                            : project.status === "In Progress"
-                            ? "secondary"
-                            : "outline"
-                        }
-                        className={
-                          project.status === "Completed"
-                            ? "bg-primary/20 text-primary"
-                            : ""
-                        }
-                      >
-                        {project.status}
-                      </Badge>
-                    </td>
-                    <td className="py-4">
-                      <Link href="/dashboard/thermal-analysis">
-                        <Button variant="ghost" size="sm" className="gap-1">
-                          Open <ArrowRight className="h-3 w-3" />
-                        </Button>
-                      </Link>
+                {recentProjects.length > 0 ? (
+                  recentProjects.map((project, i) => (
+                    <tr key={i} className="border-b border-border last:border-0">
+                      <td className="py-4 text-sm font-medium text-foreground">
+                        {project.name}
+                      </td>
+                      <td className="py-4 text-sm text-muted-foreground">
+                        {project.type}
+                      </td>
+                      <td className="py-4 text-sm text-muted-foreground">
+                        {project.updated}
+                      </td>
+                      <td className="py-4">
+                        <Badge
+                          variant={
+                            project.status === "Completed"
+                              ? "default"
+                              : project.status === "In Progress"
+                              ? "secondary"
+                              : "outline"
+                          }
+                          className={
+                            project.status === "Completed"
+                              ? "bg-primary/20 text-primary"
+                              : ""
+                          }
+                        >
+                          {project.status}
+                        </Badge>
+                      </td>
+                      <td className="py-4">
+                        <Link href="/dashboard/thermal-analysis">
+                          <Button variant="ghost" size="sm" className="gap-1">
+                            Open <ArrowRight className="h-3 w-3" />
+                          </Button>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={5} className="py-8 text-center text-sm text-muted-foreground">
+                      No projects found yet. Create a new project to start your first thermal analysis.
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>

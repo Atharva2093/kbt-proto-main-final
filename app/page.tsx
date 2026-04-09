@@ -1,30 +1,32 @@
 "use client"
 
 import Link from "next/link"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { BrandLogo } from "@/components/brand-logo"
 import {
   Layers,
   Clock,
   DollarSign,
-  Thermometer,
   Zap,
   Settings,
   ArrowRight,
   BarChart3,
   CheckCircle,
+  Menu,
+  X,
 } from "lucide-react"
 
 export default function LandingPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Thermometer className="h-6 w-6 text-primary" />
-            <span className="text-xl font-semibold text-foreground">ThermalWall AI</span>
-          </Link>
+          <BrandLogo href="/" markClassName="h-7 w-7" textClassName="text-xl" />
           <nav className="hidden items-center gap-8 md:flex">
             <Link href="#features" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
               Features
@@ -36,7 +38,16 @@ export default function LandingPage() {
               Dashboard
             </Link>
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
             <Link href="/login">
               <Button variant="outline" className="hidden sm:inline-flex">
                 Login
@@ -47,6 +58,29 @@ export default function LandingPage() {
             </Link>
           </div>
         </div>
+        {mobileMenuOpen && (
+          <div className="border-t border-border bg-card/95 px-6 py-4 md:hidden">
+            <nav className="flex flex-col gap-3">
+              <Link href="#features" className="text-sm text-muted-foreground transition-colors hover:text-foreground" onClick={() => setMobileMenuOpen(false)}>
+                Features
+              </Link>
+              <Link href="#how-it-works" className="text-sm text-muted-foreground transition-colors hover:text-foreground" onClick={() => setMobileMenuOpen(false)}>
+                How it Works
+              </Link>
+              <Link href="/dashboard" className="text-sm text-muted-foreground transition-colors hover:text-foreground" onClick={() => setMobileMenuOpen(false)}>
+                Dashboard
+              </Link>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full">Login</Button>
+                </Link>
+                <Link href="/signup" onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full">Sign Up</Button>
+                </Link>
+              </div>
+            </nav>
+          </div>
+        )}
       </header>
 
       <main>
@@ -176,7 +210,9 @@ export default function LandingPage() {
               <Card className="border-border bg-background">
                 <CardContent className="flex items-start gap-4 pt-6">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                    <Thermometer className="h-5 w-5 text-primary" />
+                    <svg viewBox="0 0 24 24" className="h-5 w-5 text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M10 3H14V13.2L16.8 10.4L19 12.6L12 19.6L5 12.6L7.2 10.4L10 13.2V3Z" />
+                    </svg>
                   </div>
                   <div>
                     <h3 className="mb-1 font-semibold text-foreground">Reduce Heat Loss</h3>
@@ -226,7 +262,7 @@ export default function LandingPage() {
               Start designing energy-efficient buildings today
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Join engineers and architects already using ThermalWall AI
+              Join engineers and architects already using ThermoSmart
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link href="/dashboard">
@@ -241,13 +277,10 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-border bg-card px-6 py-8">
-        <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Thermometer className="h-5 w-5 text-primary" />
-            <span className="font-semibold text-foreground">ThermalWall AI</span>
-          </div>
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <BrandLogo href="/" markClassName="h-6 w-6" textClassName="text-base font-semibold" />
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} ThermalWall AI. All rights reserved.
+            &copy; {new Date().getFullYear()} ThermoSmart. All rights reserved.
           </p>
         </div>
       </footer>
